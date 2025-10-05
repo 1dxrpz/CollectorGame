@@ -27,7 +27,7 @@ public class Spawner : MonoBehaviour
 		multiplier += Player.DamageMultiplier / 5f;
 		multiplier += Player.Debt == 0 ? 0 : 1 - (5 / Player.Debt);
 
-		enemyDelay -= Time.deltaTime * 5 * Mathf.Clamp(multiplier, 1, 10);
+		enemyDelay -= Time.deltaTime * 5 * Mathf.Clamp(multiplier, 1, 10) / 5;
 
 		if (enemyDelay > 0)
 			return;

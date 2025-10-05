@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -45,8 +47,7 @@ public class Player : MonoBehaviour
 
 	private void Awake()
 	{
-		
-		
+
 	}
 
 	private void OnDisable()
@@ -68,6 +69,8 @@ public class Player : MonoBehaviour
 
 	private void Start()
 	{
+		SetSFXVolume();
+		SetMusicVolume();
 		audioSources = GetComponents<AudioSource>();
 
 		Debug.Log(audioSources.Count());
@@ -119,7 +122,7 @@ public class Player : MonoBehaviour
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
 		Time.timeScale = 1;
-		
+
 		if (skill.id == 0)
 		{
 			ShowSecondShotgun();
@@ -158,7 +161,7 @@ public class Player : MonoBehaviour
 		Cursor.lockState = CursorLockMode.None;
 		Cursor.visible = true;
 		Time.timeScale = 0;
-		
+
 		ShopUI.SetActive(true);
 
 		var available = AllSkills
@@ -214,5 +217,47 @@ public class Player : MonoBehaviour
 		Cursor.visible = true;
 		Time.timeScale = 0;
 		GameOverUI.SetActive(true);
+	}
+
+	public Slider MusicSlider;
+	public Slider SFXSlider;
+	public AudioMixer AudioMixer;
+
+	public void SetSFXVolume()
+	{
+		float volume = SFXSlider.value;
+		AudioMixer.SetFloat("SFX", volume);
+	}
+
+	public void SetMusicVolume()
+	{
+		float volume = MusicSlider.value;
+		AudioMixer.SetFloat("Music", volume);
+	}
+
+	public GameObject SettingsTab;
+
+	public void HideSettings()
+	{
+		Time.timeScale = 1;
+		SettingsTab.SetActive(false);
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
+	}
+
+	public void ShowSettings()
+	{
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
+		Time.timeScale = 0;
+		SettingsTab.SetActive(true);
+	}
+
+	private void Update()
+	{
+		if(Input.GetKeyDown(KeyCode.Escape))
+		{
+			ShowSettings();
+		}
 	}
 }

@@ -187,6 +187,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfe026c8d46ed774dab463055d48e3e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
+  Health: 1
+  BloodSplatter: {fileID: 4830055325181087941, guid: c0274b0ccc2349f4da6cfdf6e4e6e225, type: 3}
+  damageDelay: 10
 --- !u!195 &1958197041980359389
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -1,14 +1,15 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.VFX;
 
 public class Collector : MonoBehaviour
 {
 	public float Health = 1;
 	NavMeshAgent agent;
 	Player player;
-
-
+	
 	private void Start()
 	{
 		agent = GetComponent<NavMeshAgent>();
@@ -31,7 +32,7 @@ public class Collector : MonoBehaviour
 		agent.destination = player.transform.position;
 		var dist = Vector3.Distance(agent.transform.position, player.transform.position);
 
-		if (dist < 2.5f)
+		if (dist < 2.5f || player.transform.position.y > agent.transform.position.y + 2.5f)
 		{
 			player.TakeDamage(2f * Player.EnemyDamageMultiplier);
 		}
@@ -48,6 +49,7 @@ public class Collector : MonoBehaviour
 
 	private void Die()
 	{
+		
 		player.AddRage(10 * UnityEngine.Random.Range(1, 5));
 		player.AddDebt(UnityEngine.Random.Range(10, 15) * 100);
 		Destroy(this.gameObject);

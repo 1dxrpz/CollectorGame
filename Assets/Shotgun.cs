@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Shotgun : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class Shotgun : MonoBehaviour
 
 	AudioSource[] SfxShotgun;
 
+	public GameObject BloodSplatter;
+	
 	void Start()
 	{
 		SfxShotgun = GetComponents<AudioSource>();
@@ -84,6 +87,9 @@ public class Shotgun : MonoBehaviour
 				if (agent != null)
 				{
 					agent.Damage(1 * Player.DamageMultiplier * (Player.HasSecondShotgun ? 2 : 1));
+					var blood = Instantiate(BloodSplatter);
+					BloodSplatter.transform.position = hit.point;
+					Destroy(blood, 1.5f);
 				}
 			}
 		}

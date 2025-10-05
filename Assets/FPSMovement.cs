@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FPSMovement : MonoBehaviour
 {
@@ -11,6 +12,13 @@ public class FPSMovement : MonoBehaviour
 	private float xRotation = 0f;
 	private Vector3 velocity;
 	private Vector3 horizontalVelocity;
+
+	public Slider SensivitySlider;
+	public void SetSensivity()
+	{
+		var sens = SensivitySlider.value;
+		lookSensitivity = sens;
+	}
 
 	private void Start()
 	{
